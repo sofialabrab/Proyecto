@@ -711,3 +711,4 @@ void comerFicha(tipoJugador *arregloTurno, char *arreglo[225])
   
 }
 
+*/
