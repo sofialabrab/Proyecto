@@ -706,9 +706,10 @@ int primerJugador(tipoJugador *arregloTurno, int cantJugadores) {
   // ROJO AZUL VERDE AMARILLO
 }
 
+
 void comerFicha(tipoJugador *arregloTurno, char *arreglo[225])
 {
   
 }
 
-*/
+

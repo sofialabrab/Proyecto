@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "list.h"
 
+
 typedef struct Node Node;
 
 struct Node {
