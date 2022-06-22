@@ -57,14 +57,24 @@ void crearTablero(char *arreglo[225]) {
   arreglo[97] = " ";
   arreglo[127] = " ";
 
-    //Casos especificos de el tablero
+  // Casos especificos de el tablero
   arreglo[96] = " ";
   arreglo[111] = " ";
   arreglo[126] = " ";
   arreglo[98] = " ";
   arreglo[113] = " ";
   arreglo[128] = " ";
-  
+  int contador=0;
+  for (int o=0 ; o<15 ;o++)
+    {
+      for(int p=0; p<15 ; p++)
+        {
+          printf(" %3d ", contador );
+          contador++;
+        }
+      printf("\n");
+    }
+ 
 }
 
 void ModalidadTradicional(List *listJugadores, char *arreglo[225],
@@ -73,14 +83,6 @@ void ModalidadTradicional(List *listJugadores, char *arreglo[225],
   // arreglo turno: arreglo que contiene el orden de turno de los jugadores
   // arregloRecorrido: arreglo que contiene las posiciones donde se pueden mover
   // los jugadores
-  int probando = 0;
-  for (int i = 0; i < 15; i++) {
-    for (int k = 0; k < 15; k++) {
-      printf(" %3d ", probando);
-      probando++;
-    }
-    printf("\n");
-  }
   // Todos los jugadores se inicializan inactivos previo a la partida
   for (int j = 0; j < 4; j++) {
     arregloTurno[j].activo = false;
@@ -109,9 +111,11 @@ void ModalidadTradicional(List *listJugadores, char *arreglo[225],
     printf("3 .- Rojo\n");
     printf("4 .- Verde\n");
   }
+  int cont = cantJugadores;
 
   for (int i = 0; i < cantJugadores; i++) {
-    while (true) {
+
+    while (cont > 0) {
       printf("\nJugador %d\n", i + 1);
       printf("Elija el color (ingrese número de la opcion): ");
       scanf("%d", &color);
@@ -127,6 +131,7 @@ void ModalidadTradicional(List *listJugadores, char *arreglo[225],
         strcpy(jugador->color, "amarillo");
         // Se guarda el jugador en la lista de jugadores
         pushBack(listJugadores, jugador->color);
+        cont--;
         break;
       } else if (color == 1)
         printf("Color ocupado, elija otro color \n");
@@ -142,6 +147,7 @@ void ModalidadTradicional(List *listJugadores, char *arreglo[225],
         strcpy(jugador->color, "azul");
         // Se guarda el jugador en la lista de jugadores
         pushBack(listJugadores, jugador->color);
+        cont--;
         break;
       } else if (color == 2)
         printf("Color ocupado, elija otro color\n");
@@ -157,6 +163,7 @@ void ModalidadTradicional(List *listJugadores, char *arreglo[225],
         // Se guarda el jugador en la lista de jugadores
         strcpy(jugador->color, "rojo");
         pushBack(listJugadores, jugador->color);
+        cont--;
         break;
       } else if (color == 3)
         printf("Color ocupado, elija otro color \n");
@@ -170,14 +177,15 @@ void ModalidadTradicional(List *listJugadores, char *arreglo[225],
         strcpy(jugador->color, "verde");
         // Se guarda el jugador en la lista de jugadores
         pushBack(listJugadores, jugador->color);
+        cont--;
         break;
       } else if (color == 4)
         printf("Color ocupado, elija otro color \n");
     }
   }
-  /*for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 4; i++) {
     printf("%i\n", arregloTurno[i].activo);
-  }*/
+  }
   EnJuego(arreglo, listJugadores, cantJugadores, arregloTurno,
           arregloRecorrido);
 }
@@ -274,6 +282,7 @@ void crearRecorrido(tipoRecorrido *arregloRecorrido) {
   char linea[1024];
   int posicion;
   int cont = 0;
+  
   while (fgets(linea, 1023, recorrido) != NULL) {
     for (int i = 0; i < 52; i = i + 1) {
       char *aux = get_csv_field(linea, i);
@@ -288,6 +297,7 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
                    tipoJugador *arregloTurno, tipoRecorrido *arregloRecorrido,
                    int dado) {
   int dondeEsta;
+  int diferencia = 0;
   // printf("%d   DADOO\n", dado);
   // printf("%d  TURNOOO\n", turnoDe);
 
@@ -318,31 +328,75 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
       arreglo[133] = "AM1";
       arregloTurno[turnoDe].posiciones.posicion1 = 133;
       return;
+      // hola
     }
     // Casos en juego
     dondeEsta = arregloTurno[turnoDe].posiciones.posicion1;
-    for (int i = 0; i < 52; i++) {
+    for (int i = 0; i <= 52; i++) {
       // Compara en que posicion del arreglo del recorrido estoy
       if (arregloRecorrido[i].posicion_arreglo == dondeEsta) {
-        /*  printf("la ficha está en la posición %d\n",
-                 arregloRecorrido[i].posicion_arreglo);
-          printf("MAITE VILLALON\n");*/
         // actualiza la casilla de donde sali a "0"
         arreglo[arregloTurno[turnoDe].posiciones.posicion1] = "0";
+        // Si entra al if, se sabe que existe alguna ficha en la posición
+        /*if(arregloRecorrido[i + dado].posicion_arreglo != 0)
+        {
+          //Moviendo ficha 1 de el azul
+          if(turnoDe == 1)
+          {
+            //Sabemos que en la posicion a mover hay una ficha de el mismo
+        jugador \
+            //i+dado == AZ
+            // poner AZ1,2
+            char *ficha[2];
+            for(int i = 0; i < 3; i++)
+            {
+              strcpy(ficha[i], arreglo[arregloRecorrido[i +
+        dado].posicion_arreglo]);
+            }
+            int numficha = atoi(ficha[2]);
+            printf("%d numero\n",numficha);
+            if(strcmp(ficha[1], "Z") == 0 )
+            {
+              //Extraer el numero de ficha
+              printf("En la casilla marcada como - AZ1,2 - se encuentran sus
+        fichas AZ1 y AZ2\n"); printf("Elija que ficha desea mover\n");
+              scanf("%i", &fichaMover);
+              if(fichaMover == 1)
+              {
+
+              }
+            }
+           }
+          }*/
+
         // Muevo a el jugador la cantidad de casillas que me dijo el dado
         arregloTurno[turnoDe].posiciones.posicion1 =
             arregloRecorrido[i + dado].posicion_arreglo;
         // Dependiendo de quien haya sido el jugador, se actualiza la casilla
         // con el jugador en la posicion
-        if (turnoDe == 0)
+        if (turnoDe == 0 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R1";
-        if (turnoDe == 1)
+        else{
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "R1";
+        }
+        if (turnoDe == 1 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ1";
-        if (turnoDe == 2)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AZ1";
+        }
+        if (turnoDe == 2 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "V1";
-        if (turnoDe == 3)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "V1";
+        }
+        if (turnoDe == 3 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM1";
-        // arreglo[arregloRecorrido[i].posicion_arreglo] = "0";
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AM1";
+        }
 
         break;
       }
@@ -377,19 +431,35 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
     }
     dondeEsta = arregloTurno[turnoDe].posiciones.posicion2;
     // Casos en juego
-    for (int i = 0; i < 52; i++) {
+    for (int i = 0; i <= 52; i++) {
       if (arregloRecorrido[i].posicion_arreglo == dondeEsta) {
         arreglo[arregloTurno[turnoDe].posiciones.posicion2] = "0";
         arregloTurno[turnoDe].posiciones.posicion2 =
             arregloRecorrido[i + dado].posicion_arreglo;
-        if (turnoDe == 0)
+        if (turnoDe == 0 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R2";
-        if (turnoDe == 1)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "R1";
+        }
+        if (turnoDe == 1 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ2";
-        if (turnoDe == 2)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AZ2";
+        }
+        if (turnoDe == 2 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "V2";
-        if (turnoDe == 3)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "V1";
+        }
+        if (turnoDe == 3 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM2";
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AM2";
+        }
         break;
       }
     }
@@ -424,45 +494,65 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
 
     dondeEsta = arregloTurno[turnoDe].posiciones.posicion3;
     // Casos en juego
-    for (int i = 0; i < 52; i++) {
+    for (int i = 0; i <= 52; i++) {
       if (arregloRecorrido[i].posicion_arreglo == dondeEsta) {
         arreglo[arregloTurno[turnoDe].posiciones.posicion3] = "0";
         arregloTurno[turnoDe].posiciones.posicion3 =
             arregloRecorrido[i + dado].posicion_arreglo;
-        if (turnoDe == 0)
+        if (turnoDe == 0 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R3";
-        if (turnoDe == 1)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "R3";
+        }
+        if (turnoDe == 1 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ3";
-        if (turnoDe == 2)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AZ3";
+        }
+        if (turnoDe == 2 && i+dado<=52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "V3";
-        if (turnoDe == 3)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "V3";
+        }
+        if (turnoDe == 3 && i+dado<=52) 
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM3";
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AM3";
+        }
         break;
       }
     }
   }
-  // Si el jugador decide mover su ficha "3"
+  // Si el jugador decide mover su ficha "4"
   if (fichaMover == 4) {
     // CASOS ESPECIFICOS, salir de la base
     if ((turnoDe == 0) && (strcmp(arreglo[48], "R4") == 0) && dado == 6) {
-      arreglo[32] = "0";
+      arreglo[48] = "0";
       arreglo[91] = "R4";
       arregloTurno[turnoDe].posiciones.posicion4 = 91;
+      return;
     } else if ((turnoDe == 1) && (strcmp(arreglo[183], "AZ4") == 0) &&
                dado == 6) {
-      arreglo[167] = "0";
+      arreglo[183] = "0";
       arreglo[201] = "AZ4";
       arregloTurno[turnoDe].posiciones.posicion4 = 201;
+      return;
     } else if ((turnoDe == 2) && (strcmp(arreglo[57], "V4") == 0) &&
                dado == 6) {
-      arreglo[41] = "0";
+      arreglo[57] = "0";
       arreglo[23] = "V4";
       arregloTurno[turnoDe].posiciones.posicion4 = 23;
+      return;
     } else if ((turnoDe == 3) && (strcmp(arreglo[192], "AM4") == 0) &&
                dado == 6) {
-      arreglo[176] = "0";
+      arreglo[192] = "0";
       arreglo[133] = "AM4";
       arregloTurno[turnoDe].posiciones.posicion4 = 133;
+      return;
     }
     dondeEsta = arregloTurno[turnoDe].posiciones.posicion4;
     // Casos en juego
@@ -471,14 +561,30 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
         arreglo[arregloTurno[turnoDe].posiciones.posicion4] = "0";
         arregloTurno[turnoDe].posiciones.posicion4 =
             arregloRecorrido[i + dado].posicion_arreglo;
-        if (turnoDe == 0)
+        if (turnoDe == 0 && i+dado<52 )
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R4";
-        if (turnoDe == 1)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "R4";
+        }
+        if (turnoDe == 1 && i+dado<52 )
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ4";
-        if (turnoDe == 2)
+                  else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AZ4";
+        }
+        if (turnoDe == 2 && i+dado<52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "V4";
-        if (turnoDe == 3)
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "V4";
+        }
+        if (turnoDe == 3 && i+dado<52)
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM4";
+        else{
+          diferencia = (52-(i+dado));
+          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AM4";
+        }        
         break;
       }
     }
@@ -504,7 +610,7 @@ void EnJuego(char *arreglo[225], List *listJugadores, int cantJugadores,
     scanf("%d", &lanzamiento);
     printf("Se lanza el dado, Buena suerte!!!\n");
     dado = lanzarDado();
-    //printf("Obtuvo un %d\n", dado);
+    // printf("Obtuvo un %d\n", dado);
 
     contadorSeis = 0;
     // Caso 1 -> Especifico, para salir de base y poder repetir turno
@@ -575,110 +681,8 @@ void imprimirTablero(char *arreglo[225]) {
       contadorLinea = 0;
     }
   }
-
-  /*Basearriba izquierda:91 -> 32-33-47-48
-Basearriba derecha: 23 -> 41-42-56-57
-Baeabajo derecha:133 -> 176-177-191-192
-baseabajo izquierda: 201 -> 167-168-182-183*/
-  // int i,k;
-  // int cont = 0;
-  /*for(i = 0 ; i<15 ; i++)
-    {
-      for(k = 0 ; k<15 ; k++)
-        {
-          if(i<6 && k>8)
-          {
-            printf(" %d  ",cont);
-          }
-          else
-          {
-            if(i<6 && k<6)
-            {
-              printf("  %d ",cont);
-            }
-            else
-            {
-              if(i>8 && k<6)
-              {
-                printf("  %d ",cont);
-              }
-              else
-              {
-                if(i>8 && k>8)
-                {
-                  printf(" %d  ", cont);
-                }
-                else{
-                  printf(" %d ",cont);
-                }
-              }
-            }
-
-          }
-          cont++;
-        }
-      printf("\n");
-    }*/
 }
 
-/*void imprimirMatriz(char* matriz[15][15],int cantJugadores)
-{
-  printf("\n");
-  printf("\n");
-
-  printf("                       |  TABLERO  |\n");
-  printf("\n");
-  printf("\n");
-  printf("\n");
-  printf("\n");
-  int array[54] = {};
-  printf("\n");
-
-  for(int i = 0; i < 54; i++)
-    printf("%d ",array[i]);
-  printf("\n");
-
-  for(int i = 0; i < 15; i++)
-    {
-
-      for(int j = 0; j < 15; j++)
-        {
-          if((i<6 && j < 6) || (i>8 && j < 6) || (i > 8 && j > 8) || (i < 6 && j
-> 8)) matriz[i][j] = "  "; else matriz[i][j] = "00";
-        }
-    }
-
-  matriz[2][2] = "A1";
-  matriz[2][3] = "A2";
-  matriz[3][2] = "A3";
-  matriz[3][3] = "A4";
-
-  matriz[11][11] = "v1";
-  matriz[11][12] = "v2";
-  matriz[12][11] = "v3";
-  matriz[12][12] = "v4";
-
-  matriz[2][11] = "r1";
-  matriz[2][12] = "r2";
-  matriz[3][11] = "r3";
-  matriz[3][12] = "r4";
-
-  matriz[11][2] = "a1";
-  matriz[11][3] = "a2";
-  matriz[12][2] = "a3";
-  matriz[12][3] = "a4";
-
-  for(int i = 0; i < 15; i++)
-  {
-
-    for(int j = 0; j < 15; j++)
-      {
-        printf(" %s ",matriz[i][j]);
-      }
-    printf("\n");
-    printf("\n");
-  }
-}*/
 int lanzarDado() {
   int dado; // = (rand % 6)
   srand(time(NULL));
@@ -690,26 +694,24 @@ int lanzarDado() {
 int primerJugador(tipoJugador *arregloTurno, int cantJugadores) {
   int primero; // = (rand % 6)
   srand(time(NULL));
-  primero = (rand() % (cantJugadores - 1 + 1) + 1);
-  primero = turno(arregloTurno, primero);
-  if (primero == 0)
-    printf("COMIENZA EL JUGADOR ROJO");
-  if (primero == 1)
-    printf("COMIENZA EL JUGADOR AZUL");
-  if (primero == 2)
-    printf("COMIENZA EL JUGADOR VERDE");
-  if (primero == 3)
-    printf("COMIENZA EL JUGADOR AMARILLO");
+  do {
+    primero = (rand() % (cantJugadores - 1 + 1) + 1);
+    }while (arregloTurno[primero].activo == false);
+      // primero = turno(arregloTurno, primero);
+      if (primero == 0)
+        printf("COMIENZA EL JUGADOR ROJO");
+    if (primero == 1)
+      printf("COMIENZA EL JUGADOR AZUL");
+    if (primero == 2)
+      printf("COMIENZA EL JUGADOR VERDE");
+    if (primero == 3)
+      printf("COMIENZA EL JUGADOR AMARILLO");
 
-  printf("\n");
-  return primero;
-  // ROJO AZUL VERDE AMARILLO
-}
+    printf("\n");
+    return primero;
+    // ROJO AZUL VERDE AMARILLO
+  }
 
-
-void comerFicha(tipoJugador *arregloTurno, char *arreglo[225])
-{
-  
-}
-
-
+  //void comerFicha(tipoJugador * arregloTurno, char *arreglo[225]) {}
+  //void esGanador()
+ 
