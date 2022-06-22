@@ -332,7 +332,7 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
     }
     // Casos en juego
     dondeEsta = arregloTurno[turnoDe].posiciones.posicion1;
-    for (int i = 0; i <= 52; i++) {
+    for (int i = 0; i < 52; i++) {
       // Compara en que posicion del arreglo del recorrido estoy
       if (arregloRecorrido[i].posicion_arreglo == dondeEsta) {
         // actualiza la casilla de donde sali a "0"
@@ -374,30 +374,22 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
             arregloRecorrido[i + dado].posicion_arreglo;
         // Dependiendo de quien haya sido el jugador, se actualiza la casilla
         // con el jugador en la posicion
-        if (turnoDe == 0 && i+dado<=52)
-          arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R1";
-        else{
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "R1";
-        }
-        if (turnoDe == 1 && i+dado<=52)
-          arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ1";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AZ1";
-        }
-        if (turnoDe == 2 && i+dado<=52)
+        if (turnoDe == 0 && i+dado<52)
+        {arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R1";
+          return;}
+        if (turnoDe == 1 && i+dado<52)
+        {arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ1";
+          return;}
+        
+        if (turnoDe == 2 && i+dado<52)
+        {
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "V1";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "V1";
+          return;
         }
-        if (turnoDe == 3 && i+dado<=52)
-          arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM1";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AM1";
-        }
-
+      
+        if (turnoDe == 3 && i+dado<52)
+          {arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM1";
+          return;}
         break;
       }
     }
@@ -431,35 +423,32 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
     }
     dondeEsta = arregloTurno[turnoDe].posiciones.posicion2;
     // Casos en juego
-    for (int i = 0; i <= 52; i++) {
+    for (int i = 0; i <52; i++) {
       if (arregloRecorrido[i].posicion_arreglo == dondeEsta) {
         arreglo[arregloTurno[turnoDe].posiciones.posicion2] = "0";
         arregloTurno[turnoDe].posiciones.posicion2 =
             arregloRecorrido[i + dado].posicion_arreglo;
-        if (turnoDe == 0 && i+dado<=52)
-          arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R2";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "R1";
-        }
-        if (turnoDe == 1 && i+dado<=52)
+        if (turnoDe == 0 && i+dado<52)
+        {arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R2";
+          return;}
+        
+        if (turnoDe == 1 && i+dado<52)
+        {
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ2";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AZ2";
+          return;
         }
-        if (turnoDe == 2 && i+dado<=52)
+        
+        if (turnoDe == 2 && i+dado<52)
+        {
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "V2";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "V1";
-        }
-        if (turnoDe == 3 && i+dado<=52)
+          return;
+          }
+         if (turnoDe == 3 && i+dado<52)
+        {
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM2";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AM2";
-        }
+          return;
+          }
+
         break;
       }
     }
@@ -494,35 +483,34 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
 
     dondeEsta = arregloTurno[turnoDe].posiciones.posicion3;
     // Casos en juego
-    for (int i = 0; i <= 52; i++) {
+    for (int i = 0; i < 52; i++) {
       if (arregloRecorrido[i].posicion_arreglo == dondeEsta) {
         arreglo[arregloTurno[turnoDe].posiciones.posicion3] = "0";
         arregloTurno[turnoDe].posiciones.posicion3 =
             arregloRecorrido[i + dado].posicion_arreglo;
-        if (turnoDe == 0 && i+dado<=52)
+        if (turnoDe == 0 && i+dado<52)
+        {
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R3";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "R3";
-        }
-        if (turnoDe == 1 && i+dado<=52)
+          return;
+          }
+
+        if (turnoDe == 1 && i+dado<52)
+        {
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ3";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AZ3";
-        }
-        if (turnoDe == 2 && i+dado<=52)
+          return;
+          }
+
+        if (turnoDe == 2 && i+dado<52)
+        {
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "V3";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "V3";
-        }
-        if (turnoDe == 3 && i+dado<=52) 
+          return;
+          }
+
+        if (turnoDe == 3 && i+dado<52) 
+        { 
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM3";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AM3";
-        }
+          return;
+          }
         break;
       }
     }
@@ -562,29 +550,25 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
         arregloTurno[turnoDe].posiciones.posicion4 =
             arregloRecorrido[i + dado].posicion_arreglo;
         if (turnoDe == 0 && i+dado<52 )
+        {  
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R4";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "R4";
-        }
+        return;
+          }
+      
         if (turnoDe == 1 && i+dado<52 )
+        {
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ4";
-                  else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AZ4";
-        }
+          return;
+          }
+      
         if (turnoDe == 2 && i+dado<52)
-          arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "V4";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "V4";
-        }
+        {arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "V4";
+          return;}
+      
         if (turnoDe == 3 && i+dado<52)
-          arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM4";
-        else{
-          diferencia = (52-(i+dado));
-          arreglo[arregloRecorrido[diferencia-1].posicion_arreglo] = "AM4";
-        }        
+        {arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AM4";
+          return;}
+            
         break;
       }
     }
