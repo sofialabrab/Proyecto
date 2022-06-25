@@ -7,6 +7,7 @@ typedef struct{
  int fichasEnJuego;
  int fichasGanadoras;  
  int fichasEnBase;
+ 
 
 }tipoEstado;
 typedef struct{

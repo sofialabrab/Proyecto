@@ -5,6 +5,7 @@
 #include <math.h>
 #include <string.h>
 
+
 int main(void) 
 {
   char* matriz[15][15] = {};

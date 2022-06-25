@@ -1,3 +1,4 @@
+
 #include "fun.h"
 #include "list.h"
 // arreglo de 225 posiciones, es el tablero
@@ -64,7 +65,7 @@ void crearTablero(char *arreglo[225]) {
   arreglo[98] = " ";
   arreglo[113] = " ";
   arreglo[128] = " ";
-   int contador=0;
+  /* int contador=0;
    for (int o=0 ; o<15 ;o++)
      {
        for(int p=0; p<15 ; p++)
@@ -73,7 +74,7 @@ void crearTablero(char *arreglo[225]) {
            contador++;
          }
        printf("\n");
-     }
+     }*/
 }
 
 void ModalidadTradicional(List *listJugadores, char *arreglo[225],
@@ -175,23 +176,32 @@ void ModalidadTradicional(List *listJugadores, char *arreglo[225],
         strcpy(jugador->color, "verde");
         // Se guarda el jugador en la lista de jugadores
         pushBack(listJugadores, jugador->color);
+        printf("SALIO DEL CICLO\n");
         cont--;
         break;
       } else if (color == 4)
         printf("Color ocupado, elija otro color \n");
     }
   }
+  printf("la cant de jugadores %d", cantJugadores);
 
 printf("COLORES QUE JUGARAN EN ESTA PARTIDA: \n");
-/*char jug = firstList(listJugadores);
+printf("la cant de jugadores %d", cantJugadores);
+/*
+char jug = firstList(listJugadores);
 for(int i = 0; i < cantJugadores; i++)
 {
   printf("\njugador = %s\n", jug);
   jug = nextList(listJugadores);
     
-}*/
+}
+*/
+
+  
+
   EnJuego(arreglo, listJugadores, cantJugadores, arregloTurno,
           arregloRecorrido);
+  printf("Despues de llamar enjuego\n");
 }
 void mostrarTurno(int cantJugadores, int turnoDe, tipoJugador *arregloTurno) {
   // nota : avanzar en el turno
@@ -345,6 +355,7 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
     
     // Casos en juego
     dondeEsta = arregloTurno[turnoDe].posiciones.posicion1;
+    printf("donde está la ficha %d ", dondeEsta);
     for (int i = 0; i < 52; i++) 
     {
       // Compara en que posicion del arreglo del recorrido estoy
@@ -353,74 +364,41 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
         // actualiza la casilla de donde sali a "0"
         arreglo[arregloTurno[turnoDe].posiciones.posicion1] = "0";
         // Si entra al if, se sabe que existe alguna ficha en la posición
-
-        printf("antes de saber si hay algo\n");
+        
         if(arregloRecorrido[i + dado].posicion_arreglo != 0)
         {
-          printf("SI hay algo\n");
           //JUGADOR AZUL
-          printf("antes del if\n");
-          if(turnoDe == 1)
-          {
-            printf("despues del if\n");
-            //arreglo[arregloRecorrido[i + dado].posicion_arreglo] 
-            printf("Antes de asignar lo que hay\n");
-          
-            int j = 0;
-            int total = 0;
-            printf("Lo que hay : %s\n", arreglo[arregloRecorrido[i + dado].posicion_arreglo]);
-           // casillaAllegar = atoi(arreglo[arregloRecorrido[i + dado].posicion_arreglo]);
-            printf("Despues de asignar lo que hay\n");
-
-            //La ficha que hay es de el mismo color (Azul)
-            //En este caso, AZ1 llega a la casilla
-            if( (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"AZ2") == 0) || (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"AZ3") == 0) || (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"AZ4") == 0))
-            {
-          
-              printf ("\nENTRO IF SI Q SI\n");              
-            }
-            else
-            {
-              
-              printf("nose\n");
-            }
-            
-          }
-          if (turnoDe == 0)
-          {
-             if( (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"R2") == 0) || (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"R3") == 0) || (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"R4") == 0))
-            {
-          
-              printf ("\nENTRO IF SI Q SI\n");              
-            }
-             
-          }
-          if (turnoDe == 2)
-          {
-            if( (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"V2") == 0) || (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"V3") == 0) || (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"V4") == 0))
-            {
-          
-              printf ("\nENTRO IF SI Q SI\n");              
-            }
-            
-          }
-          if (turnoDe == 3)
-
-          {
-            if( (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"AM2") == 0) || (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"AM3") == 0) || (strcmp(arreglo[arregloRecorrido[i + dado].posicion_arreglo],"AM4") == 0))
-            {
-          
-              printf ("\nENTRO IF SI Q SI\n");              
-            }
-            
-          }
           //caso 1 : es de tu ficha
 
           //caso 2 : es enemigo
           //caso 2.a : hay mas de un enemigo 
 
         }
-           
+            //Sabemos que en la posicion a mover hay una ficha de el mismo
+        //jugador \
+            //i+dado == AZ
+            // poner AZ1,2
+           // char *ficha[2];
+           // for(int i = 0; i < 3; i++)
+           // {
+          //    strcpy(ficha[i], arreglo[arregloRecorrido[i +
+       // dado].posicion_arreglo]);
+          //  }
+            //int numficha = atoi(ficha[2]);
+           // printf("%d numero\n",numficha);
+          //  if(strcmp(ficha[1], "Z") == 0 )
+          //  {
+              //Extraer el numero de ficha
+             // printf("En la casilla marcada como - AZ1,2 - se encuentran sus
+       // fichas AZ1 y AZ2\n"); printf("Elija que ficha desea mover\n");
+             // scanf("%i", &fichaMover);
+            //  if(fichaMover == 1)
+            //  {
+
+            //  }
+            //}
+         //  }
+         // }*/
         // Muevo a el jugador la cantidad de casillas que me dijo el dado
         arregloTurno[turnoDe].posiciones.posicion1 =
             arregloRecorrido[i + dado].posicion_arreglo;
@@ -432,7 +410,6 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
         // con el jugador en la posicion
         if (turnoDe == 0 && i + dado < 52) 
         {
-          
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "R1";
           return;
         }
@@ -445,16 +422,10 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
 
         if (turnoDe == 1 && i + dado < 52) 
         {
-          if(arregloRecorrido[((i+dado)-52)].posicion_arreglo == 217 )
-          {
-            printf("Entra recta final\n");
-            char* arregloFinal[5];
-            if(i + dado > 37 )
-            {
-              printf("%d \n", ((i+dado)-5));
-            }
-          }
           arreglo[arregloRecorrido[i + dado].posicion_arreglo] = "AZ1";
+         printf("AQUI SE GUARDA %d \n",  i+dado);
+
+          printf("ENTRO EN EL IF\n");
           dado = 0;
           i = 0;
           return;
@@ -463,7 +434,9 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
          {
          diferencia = ((i+dado)-52);
          arreglo[arregloRecorrido[diferencia].posicion_arreglo] = "AZ1";
+           printf("AQUI SE GUARDA %d \n",  diferencia);
            
+           printf("ENTRO EN EL ELSE\n");
           dado = 0;
           i = 0;
           diferencia = 0;
@@ -746,6 +719,7 @@ void editarTablero(int fichaMover, int turnoDe, char *arreglo[225],
 
 void EnJuego(char *arreglo[225], List *listJugadores, int cantJugadores,
              tipoJugador *arregloTurno, tipoRecorrido *arregloRecorrido) {
+  printf("\nENTRO A EN JUEGO\n");
   bool ganador = false;
   int dado = 0;
   int fichaMover;
@@ -755,6 +729,7 @@ void EnJuego(char *arreglo[225], List *listJugadores, int cantJugadores,
   // Qué color parte
   turnoDe = primerJugador(arregloTurno, cantJugadores);
   printf("Turno de : %d", turnoDe);
+  printf("salio de primer jugador\n");
   imprimirTablero(arreglo); // solo se llama al inicio, es el tablero base.
   // Turno
   while (cantJugadores > 1) {
@@ -831,17 +806,6 @@ int turno(tipoJugador* arregloTurno, int jugador) {
   return jugador;
 }
   }
-void imprimirTablero(char *arreglo[225]) {
-  int contadorLinea = 0;
-  for (int k = 0; k < 225; k++) {
-    printf("  %3s ", arreglo[k]);
-    contadorLinea++;
-    if (contadorLinea == 15) {
-      printf("\n");
-      contadorLinea = 0;
-    }
-  }
-}
 
 int lanzarDado() {
   int dado; // = (rand % 6)
@@ -857,8 +821,10 @@ int lanzarDado() {
 }
 
 int primerJugador(tipoJugador *arregloTurno, int cantJugadores) {
+  printf("\nEntra a primer jugador\n");
   int primero; // = (rand % 6)
   srand(time(NULL));
+  
   do{
     primero = rand() % 4;
   }while (arregloTurno[primero].activo == false);
@@ -878,22 +844,17 @@ int primerJugador(tipoJugador *arregloTurno, int cantJugadores) {
 }
 void parteFinal()
 {
-  
 }
-
-
-
-// void comerFicha(tipoJugador * arregloTurno, char *arreglo[225]) {}
-// void esGanador()
-
 /*
 VOID FUNCION PARA INSULTAR(SOFIA, SEBA, MAITE, JAVIER)
-757	- {
 758	- 1.- Comerse la ficha y devolverla a su base
 759	- 2.-Revisar si hay dos fichas mias, que queden ambas
 760	- 3.- Hacer la recta final
 761	- 5.- Cuando te comes una ficha se puede volver a lanzar el dado
 762	- 6.- Ganadores 
+
 */
 
- 
+
+
+
