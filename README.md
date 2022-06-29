@@ -1,6 +1,7 @@
 # Proyecto
 (1) Como compilar y ejecutar tarea.
-VisualStudio: No fue probado en visual
+VisualStudio: gcc -g main.c fun.c list.c eliminarFicha.c ready.c -o proyecto 
+            ./proyecto.exe
 Replit: RUN.
 
 (2)Las opciones que funcionan correctamente y las que no lo hacen indicando posibles causas
